@@ -1,0 +1,9 @@
+@import "tailwindcss";
+body{
+  background-color:black;
+  color:white;
+  font-family: 'Courier New', Courier, monospace;
+}
+/* h1{
+  font-size: 100px;
+} */
