@@ -1,6 +1,14 @@
 @import "tailwindcss";
-body{
-  background-color:black;
-  color:white;
+#root{
+  min-height: 100vh; /* Ye lagana sabse zaroori hai! */
+  background: #c84e89;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #F15F79, #c84e89);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #F15F79, #c84e89); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
   font-family: 'Roboto', sans-serif;
 }
+
+
+/* background: #000C40;  
+background: -webkit-linear-gradient(to bottom, #607D8B, #000C40); 
+background: linear-gradient(to bottom, #607D8B, #000C40);  */
