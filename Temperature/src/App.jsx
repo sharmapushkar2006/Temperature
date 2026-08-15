@@ -2,24 +2,25 @@ import { useState, useEffect} from 'react'
 import './App.css'
 
 function App() {
-  const [temp,settemp]=useState("Locating..");
-  var url;
-  function lin(x,y){
-    url=`https://api.open-meteo.com/v1/forecast?latitude=${x}&longitude=${y}&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&hourly=temperature_2m&current=temperature_2m,is_day&timezone=auto&forecast_days=1`
-  }
+  const [temp,settemp]=useState("0");
 
-  async function success(position) {
-    lin(position.coords.latitude,position.coords.longitude);
-    result= await fetch(url, {method:"GET"});
-    data= await result.json();
-    console.log(data.current.temperature_2m);
-    temp.innerHTML=data.current.temperature_2m+"°C";
-    total.innerHTML="Max Temperature: "+data.daily.temperature_2m_max[0]+"°C, Min Temperature: "+data.daily.temperature_2m_min[0]+"°C";
-    uv.innerHTML="UV Index: "+data.daily.uv_index_max[0];
 
+  const success = async(position) => {
+    try{
+      const url=`https://api.open-meteo.com/v1/forecast?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&hourly=temperature_2m&current=temperature_2m,is_day&timezone=auto&forecast_days=1`;
+      const result=await fetch(url, {method:"GET"});
+      const data =await result.json();
+      var i=0;
+      setInterval(()=>{
+        if(i<data.current.temperature_2m){
+          settemp(i);
+          i+=1;
+        }
+      },50)
+    }catch(err){
+      alert("We encountered an error")
+    }
 }
-
-
 
 useEffect(()=>{
     if (navigator.geolocation) {
@@ -30,7 +31,9 @@ useEffect(()=>{
      settemp('Not found')
    }
 
-  },[temp])
+  },[])
+
+  //frontend code
   return (
    <>
     <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 item-center flex flex-col gap-6'>
